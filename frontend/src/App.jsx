@@ -20,7 +20,8 @@ function App() {
     setResult(null)
 
     try {
-      const response = await fetch('http://localhost:5001/predict', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+      const response = await fetch(`${apiUrl}/predict`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
