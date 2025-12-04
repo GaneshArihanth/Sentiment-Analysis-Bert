@@ -157,7 +157,7 @@ This project uses a **Split Deployment** strategy.
         -   `app.py`
         -   `requirements.txt`
         -   `Dockerfile`
-    -   **CRITICAL**: Drag and drop **ALL FILES** from your local `saved_bert_sentiment_model3final` folder into the root.
+    -   **CRITICAL**: Drag and drop **ALL FILES** from your local `saved_bert_sentiment_model` folder into the root.
         -   *Do not upload the folder itself, upload the files INSIDE it.*
         -   You should see `config.json`, `pytorch_model.bin`, etc., listed right next to `app.py`.
     -   Click **Commit changes to main**.
@@ -237,7 +237,7 @@ Sentiment analysis/
 │   ├── app.py
 │   ├── requirements.txt
 │   └── Dockerfile
-├── saved_bert_sentiment_model3final/  # The "Brain" (Model files)
+├── saved_bert_sentiment_model/  # The "Brain" (Model files)
 └── README.md                  # You are reading this!
 ```
 

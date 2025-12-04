@@ -16,7 +16,7 @@ print(f"Using device: {device}")
 # Load the saved model and tokenizer
 # Use absolute path or path relative to this script
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "..", "saved_bert_sentiment_model3final")
+MODEL_PATH = os.path.join(BASE_DIR, "..", "saved_bert_sentiment_model")
 
 
 try:
