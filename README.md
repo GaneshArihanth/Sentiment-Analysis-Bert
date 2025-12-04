@@ -13,7 +13,7 @@
 A premium, interactive web application for real-time sentiment analysis. This project leverages a fine-tuned **BERT** model to classify text as **Positive** or **Negative** with high accuracy, wrapped in a modern, aesthetically pleasing React frontend.
 
 ## 🔗 Live Demo
--   **Live App**: [https://ganesharihanth-bert-sentiment-api.hf.space/](https://ganesharihanth-bert-sentiment-api.hf.space/)
+-   **Vercel Hosting**: [https://ganesharihanth-bert-sentiment-api.hf.space/](https://ganesharihanth-bert-sentiment-api.hf.space/)
 -   **Hugging Face Space**: [https://huggingface.co/spaces/GaneshArihanth/bert-sentiment-api](https://huggingface.co/spaces/GaneshArihanth/bert-sentiment-api)
 
 ---
