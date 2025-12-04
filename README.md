@@ -1,6 +1,20 @@
 # Sentiment Analyzer 🧠
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![React](https://img.shields.io/badge/React-18.x-blue)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-5.x-purple)](https://vitejs.dev/)
+[![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-2.x-000000)](https://flask.palletsprojects.com/)
+[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Spaces-FFD21E)](https://huggingface.co/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-BERT-EE4C2C)](https://pytorch.org/)
+[![Vercel](https://img.shields.io/badge/Vercel-Hosting-000000)](https://vercel.com/)
+
+
 A premium, interactive web application for real-time sentiment analysis. This project leverages a fine-tuned **BERT** model to classify text as **Positive** or **Negative** with high accuracy, wrapped in a modern, aesthetically pleasing React frontend.
+
+## 🔗 Live Demo
+-   **Live App**: [https://ganesharihanth-bert-sentiment-api.hf.space/](https://ganesharihanth-bert-sentiment-api.hf.space/)
+-   **Hugging Face Space**: [https://huggingface.co/spaces/GaneshArihanth/bert-sentiment-api](https://huggingface.co/spaces/GaneshArihanth/bert-sentiment-api)
 
 ---
 
@@ -189,10 +203,39 @@ This project uses a **Split Deployment** strategy.
     -   Click **Deploy**.
     -   Wait for the confetti! 🎉
 
+### Option 2: Full Stack on Hugging Face (Alternative)
+If you want to host **everything** (Frontend + Backend) on Hugging Face Spaces:
+
+1.  **Build Frontend**:
+    -   In your local `frontend` folder, run:
+        ```bash
+        # Mac/Linux
+        export VITE_API_URL=""
+        npm run build
+        # Windows (PowerShell)
+        $env:VITE_API_URL=""; npm run build
+        ```
+    -   This creates a `dist` folder.
+
+2.  **Upload to Space**:
+    -   Go to your Space's **Files** tab.
+    -   Upload the **contents** of the `frontend/dist` folder (index.html, assets folder, etc.) into a new folder named `dist` in your Space.
+    -   *Structure should be*:
+        ```
+        app.py
+        dist/
+          ├── index.html
+          └── assets/
+        ```
+    -   (You might need to create the `dist` folder in the UI or upload files one by one if drag-and-drop is tricky for folders).
+
+3.  **Update app.py**:
+    -   I have already updated `hf_space/app.py` to serve files from `dist`. Ensure you uploaded the latest version.
+
 ### Part 3: Verification
--   Open your Vercel app URL.
--   Type "I am so happy this works!" and click Analyze.
--   If you see "Positive" and a confidence score, everything is connected!
+-   **Vercel**: Open your Vercel app URL.
+-   **Hugging Face**: Open your Space URL (it should now show the UI instead of just text!).
+
 
 ---
 
