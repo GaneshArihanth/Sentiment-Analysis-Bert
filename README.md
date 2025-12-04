@@ -85,7 +85,7 @@ We didn't build BERT from scratch (that takes supercomputers!). We used a techni
 
 ---
 
-## 📦 Installation Guide
+## 📦 Installation Guide (Local)
 
 ### Prerequisites
 You need these installed on your computer:
@@ -118,25 +118,81 @@ This sets up the website you interact with.
     ```
     *This downloads React, GSAP, and other interface libraries.*
 
+### 3. Running Locally
+1.  **Start Backend**:
+    ```bash
+    # In backend folder
+    python app.py
+    ```
+2.  **Start Frontend**:
+    ```bash
+    # In frontend folder
+    npm run dev
+    ```
+3.  Open the link shown (e.g., `http://localhost:5173`).
+
 ---
 
-## 🚀 Usage
+## ☁️ Deployment Guide (Step-by-Step)
 
-### Step 1: Start the Backend
-The backend needs to be running to process your text.
-```bash
-# In the backend terminal
-python app.py
-```
-*Wait until you see "Running on http://127.0.0.1:5001". This means the brain is awake!*
+This project uses a **Split Deployment** strategy.
+-   **Why?** The BERT model is large (hundreds of MBs). Free frontend hosting (like Vercel) cannot handle this size.
+-   **Solution**: We host the "Brain" (Model) on **Hugging Face Spaces** (which offers free CPU hosting for models) and the "Face" (Frontend) on **Vercel** (which is optimized for React).
 
-### Step 2: Start the Frontend
-Now start the website.
-```bash
-# In the frontend terminal
-npm run dev
-```
-*You will see a link like `http://localhost:5173`. Click it to open the app!*
+### Part 1: Deploying the Backend (Hugging Face Spaces)
+
+1.  **Create an Account**: Go to [huggingface.co](https://huggingface.co/) and sign up.
+2.  **Create a Space**:
+    -   Click on your profile picture -> **New Space**.
+    -   **Space Name**: `bert-sentiment-api` (or similar).
+    -   **License**: `MIT`.
+    -   **SDK**: Select **Docker**.
+    -   **Docker Template**: Select **Blank**.
+    -   **Space Hardware**: Keep it as **CPU Basic (Free)**.
+    -   Click **Create Space**.
+3.  **Upload Files**:
+    -   Go to the **Files** tab of your new Space.
+    -   Click **Add file** -> **Upload files**.
+    -   **Drag and drop** the following files from your local `hf_space` folder:
+        -   `app.py`
+        -   `requirements.txt`
+        -   `Dockerfile`
+    -   **CRITICAL**: Drag and drop **ALL FILES** from your local `saved_bert_sentiment_model3final` folder into the root.
+        -   *Do not upload the folder itself, upload the files INSIDE it.*
+        -   You should see `config.json`, `pytorch_model.bin`, etc., listed right next to `app.py`.
+    -   Click **Commit changes to main**.
+4.  **Wait for Build**:
+    -   The Space will show "Building". This might take 2-5 minutes.
+    -   When it says **Running**, your API is ready!
+5.  **Get the API URL**:
+    -   Click the **three dots** (⋮) in the top right -> **Embed this space**.
+    -   Copy the **Direct URL**. It looks like: `https://username-space.hf.space`.
+
+### Part 2: Deploying the Frontend (Vercel)
+
+1.  **Push to GitHub**:
+    -   Ensure your project is pushed to a GitHub repository.
+2.  **Import to Vercel**:
+    -   Go to [vercel.com](https://vercel.com) and log in.
+    -   Click **Add New...** -> **Project**.
+    -   Select your GitHub repository.
+3.  **Configure Project**:
+    -   **Framework Preset**: Select **Vite**.
+    -   **Root Directory**: Click Edit and select `frontend`.
+4.  **Environment Variables**:
+    -   Expand the **Environment Variables** section.
+    -   **Key**: `VITE_API_URL`
+    -   **Value**: Paste the **Direct URL** from Hugging Face (Part 1, Step 5).
+        -   *Example*: `https://ganesharihanth-bert-sentiment-api.hf.space`
+        -   *Note*: Remove any trailing slash `/` at the end.
+5.  **Deploy**:
+    -   Click **Deploy**.
+    -   Wait for the confetti! 🎉
+
+### Part 3: Verification
+-   Open your Vercel app URL.
+-   Type "I am so happy this works!" and click Analyze.
+-   If you see "Positive" and a confidence score, everything is connected!
 
 ---
 
@@ -165,52 +221,25 @@ Analyzes the sentiment of the provided text.
 
 ---
 
-## 🎨 Customization
-
-### Changing Background Colors
-You can customize the `DotGrid` colors in `frontend/src/App.jsx`:
-```jsx
-<DotGrid
-  baseColor="#222244"   // Default subtle color
-  activeColor="#646cff" // Hover highlight color
-  dotSize={4}           // Size of the dots
-/>
-```
-
-### Adjusting Animation Speed
-Modify the `ShinyText` speed in `frontend/src/App.jsx`:
-```jsx
-<ShinyText 
-  speed={3} // Duration in seconds
-/>
-```
-
----
-
 ## 📂 Project Structure
 
 ```
 Sentiment analysis/
-├── backend/
-│   ├── app.py                 # The API server (Flask)
-│   └── requirements.txt       # List of Python libraries needed
-├── frontend/
+├── backend/                   # Local Flask API
+│   ├── app.py
+│   └── requirements.txt
+├── frontend/                  # React Frontend
 │   ├── src/
-│   │   ├── App.jsx            # The main page layout
-│   │   ├── DotGrid.jsx        # The background dots animation
-│   │   ├── VariableProximity.jsx # The interactive title
-│   │   ├── ShinyText.jsx      # The shimmering subtitle
-│   │   └── index.css          # Colors and fonts
-│   ├── package.json           # List of JavaScript libraries needed
-│   └── vite.config.js         # Configuration for the build tool
+│   │   ├── App.jsx            # Main Logic
+│   │   └── ...
+│   └── package.json
+├── hf_space/                  # Deployment files for Hugging Face
+│   ├── app.py
+│   ├── requirements.txt
+│   └── Dockerfile
 ├── saved_bert_sentiment_model3final/  # The "Brain" (Model files)
 └── README.md                  # You are reading this!
 ```
-
-## 🔧 Troubleshooting
-
-- **Port Conflicts**: The backend runs on port `5001`. If you see an error about the port being in use (common on Macs with AirPlay), you can change it in `backend/app.py`.
-- **Model Not Found**: The app needs the `saved_bert_sentiment_model3final` folder. Ensure it's in the main project folder, not inside `backend` or `frontend`.
 
 ## 🤝 Contributing
 
